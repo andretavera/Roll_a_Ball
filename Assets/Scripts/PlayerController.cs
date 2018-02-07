@@ -11,8 +11,7 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	public Text countText;
 	public Text winText;
-	public Camera camera1;
-	public Camera Camera2;
+
 
 
 
@@ -20,8 +19,7 @@ public class PlayerController : MonoBehaviour {
 		rb = GetComponent<Rigidbody> ();
 		winText.text = " ";
 		setCountText ();
-		camera1.GetComponent<Camera> ().enabled = true;
-		Camera2.GetComponent<Camera> ().enabled = false;
+
 
 	}
 
@@ -39,7 +37,8 @@ public class PlayerController : MonoBehaviour {
 		float moveVertical = Input.GetAxis ("Vertical");
 
 		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
-
+		movement = Camera.main.transform.TransformDirection (movement);
+		movement.y = 0.0f;	
 		rb.AddForce (movement * speed);
 
 	}
@@ -60,15 +59,9 @@ public class PlayerController : MonoBehaviour {
 		if (count >= 12) {
 
 		}
-		if (count >= 20) {
-			camera1.GetComponent<Camera> ().enabled = false;
-			Camera2.GetComponent<Camera> ().enabled = true;
 
-		}
 		if (count >= 24) {
 			winText.text = "Congratulations! You got all " + count.ToString() + " objects!";
-			camera1.GetComponent<Camera> ().enabled = true;
-			Camera2.GetComponent<Camera> ().enabled = false;
 	
 			 
 
